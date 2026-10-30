@@ -1,15 +1,15 @@
 <!DOCTYPE html>
-<html lang="en" class="h-full">
+<html lang="hi" class="h-full">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>RAS Master Study Dashboard | Dynamic Syllabus Engine</title>
+    <title>RAS Exam Master Tracker | Dynamic Custom Planner</title>
     <!-- Tailwind CSS CDN -->
     <script src="https://cdn.tailwindcss.com"></script>
     <!-- FontAwesome Icons -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    <!-- Google Fonts: Inter & Roboto -->
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Roboto:wght@400;500;700&display=swap" rel="stylesheet">
+    <!-- Google Fonts: Inter & Outfit -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Outfit:wght@400;600;700;800&display=swap" rel="stylesheet">
     
     <script>
         tailwind.config = {
@@ -25,14 +25,14 @@
                             yellow: '#f9ab00',
                             grayBg: '#f8f9fa',
                             cardBg: '#ffffff',
-                            darkBg: '#202124',
-                            darkCard: '#2d2e30',
-                            border: '#dadce0',
-                            darkBorder: '#3c4043'
+                            darkBg: '#121212',
+                            darkCard: '#1e1e1e',
+                            darkBorder: '#2d2d2d'
                         }
                     },
                     fontFamily: {
-                        sans: ['Inter', 'Roboto', 'sans-serif']
+                        sans: ['Inter', 'sans-serif'],
+                        display: ['Outfit', 'sans-serif']
                     }
                 }
             }
@@ -44,46 +44,48 @@
         ::-webkit-scrollbar-thumb { background: rgba(0, 0, 0, 0.2); border-radius: 4px; }
         .dark ::-webkit-scrollbar-track { background: rgba(255, 255, 255, 0.05); }
         .dark ::-webkit-scrollbar-thumb { background: rgba(255, 255, 255, 0.2); }
-        .google-shadow { box-shadow: 0 1px 3px 0 rgba(60,64,67,0.2), 0 2px 6px 2px rgba(60,64,67,0.1); }
+        .google-shadow { box-shadow: 0 2px 8px 0 rgba(60,64,67,0.1), 0 1px 3px 1px rgba(60,64,67,0.06); }
+        .pro-card-gradient { background: linear-gradient(135deg, rgba(255,255,255,0.9) 0%, rgba(248,250,252,0.95) 100%); }
+        .dark .pro-card-gradient { background: linear-gradient(135deg, rgba(30,30,30,0.95) 0%, rgba(24,24,27,0.9) 100%); }
     </style>
 </head>
 <body class="bg-google-grayBg dark:bg-google-darkBg text-gray-800 dark:text-gray-200 font-sans min-h-full flex flex-col transition-colors duration-200">
 
     <!-- Top Navigation Header -->
-    <header class="bg-white dark:bg-google-darkCard border-b border-google-border dark:border-google-darkBorder sticky top-0 z-40 shadow-sm">
-        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-16 flex items-center justify-between gap-2">
+    <header class="bg-white/90 dark:bg-google-darkCard/90 backdrop-blur-md border-b border-gray-200 dark:border-google-darkBorder sticky top-0 z-40 shadow-sm">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-16 flex items-center justify-between gap-3">
             <div class="flex items-center space-x-3">
-                <div class="w-10 h-10 rounded-xl bg-gradient-to-tr from-amber-500 via-orange-600 to-red-600 flex items-center justify-center text-white shadow-md">
+                <div class="w-10 h-10 rounded-xl bg-gradient-to-tr from-amber-500 via-orange-600 to-red-600 flex items-center justify-center text-white shadow-md shadow-orange-500/20">
                     <i class="fa-solid fa-graduation-cap text-xl"></i>
                 </div>
                 <div>
-                    <h1 class="text-base sm:text-lg font-bold text-gray-900 dark:text-white flex items-center gap-2">
-                        RAS Final Target Engine <span class="text-[10px] sm:text-xs font-semibold px-2 py-0.5 rounded bg-amber-100 text-amber-800 dark:bg-amber-900/40 dark:text-amber-300">64 Topics Master Engine</span>
+                    <h1 class="text-base sm:text-lg font-extrabold font-display text-gray-900 dark:text-white flex items-center gap-2">
+                        RAS Target Engine <span class="text-[10px] sm:text-xs font-semibold px-2 py-0.5 rounded-full bg-amber-100 text-amber-800 dark:bg-amber-900/50 dark:text-amber-300">64 Topics Master Syllabus</span>
                     </h1>
-                    <p class="text-xs text-gray-500 dark:text-gray-400">Target Deadline: 15 Nov (Adaptive Auto-Shift Engine)</p>
+                    <p class="text-xs text-gray-500 dark:text-gray-400">Custom Log Engine • Target: 15 Nov (Flexible Extends for Backlog)</p>
                 </div>
             </div>
 
             <!-- Header Action Controls -->
             <div class="flex items-center space-x-2">
-                <button onclick="toggleModal('pomodoroModal')" class="p-2 text-gray-600 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-700 rounded-lg text-xs font-semibold flex items-center gap-1.5 border border-google-border dark:border-google-darkBorder" title="Focus Timer">
+                <button onclick="toggleModal('pomodoroModal')" class="px-3 py-1.5 text-gray-700 dark:text-gray-200 bg-gray-100 dark:bg-gray-800 hover:bg-gray-200 dark:hover:bg-gray-700 rounded-xl text-xs font-bold flex items-center gap-1.5 border border-gray-200 dark:border-google-darkBorder transition-all" title="Focus Timer">
                     <i class="fa-solid fa-stopwatch text-google-blue"></i>
                     <span class="hidden md:inline" id="headerTimerDisplay">25:00</span>
                 </button>
 
-                <button id="themeToggleBtn" onclick="toggleDarkMode()" class="p-2 text-gray-600 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-700 rounded-lg" title="Toggle Theme">
+                <button id="themeToggleBtn" onclick="toggleDarkMode()" class="p-2 text-gray-600 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-700 rounded-xl transition-all" title="Toggle Theme">
                     <i class="fa-solid fa-moon dark:hidden text-base"></i>
                     <i class="fa-solid fa-sun hidden dark:block text-amber-400 text-base"></i>
                 </button>
 
-                <button onclick="exportData()" class="p-2 text-gray-600 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-700 rounded-lg" title="Export Backup JSON">
+                <button onclick="exportData()" class="p-2 text-gray-600 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-700 rounded-xl transition-all" title="Export Progress Backup">
                     <i class="fa-solid fa-download"></i>
                 </button>
-                <button onclick="document.getElementById('importFileInput').click()" class="p-2 text-gray-600 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-700 rounded-lg" title="Import Data">
+                <button onclick="document.getElementById('importFileInput').click()" class="p-2 text-gray-600 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-700 rounded-xl transition-all" title="Import Progress Backup">
                     <i class="fa-solid fa-upload"></i>
                 </button>
                 <input type="file" id="importFileInput" onchange="importData(event)" class="hidden" accept=".json">
-                <button onclick="resetData()" class="p-2 text-red-600 dark:text-red-400 hover:bg-red-50 dark:hover:bg-red-950/40 rounded-lg" title="Reset All Data">
+                <button onclick="resetData()" class="p-2 text-red-600 dark:text-red-400 hover:bg-red-50 dark:hover:bg-red-950/40 rounded-xl transition-all" title="Reset All Data">
                     <i class="fa-solid fa-rotate-left"></i>
                 </button>
             </div>
@@ -92,670 +94,651 @@
 
     <main class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-6 flex-grow w-full space-y-6">
 
-        <!-- Top Stat Banner -->
-        <div class="bg-white dark:bg-google-darkCard rounded-2xl p-5 google-shadow border border-google-border dark:border-google-darkBorder relative overflow-hidden">
+        <!-- Top Pro Dynamic Banner -->
+        <div class="bg-white dark:bg-google-darkCard rounded-3xl p-5 sm:p-6 google-shadow border border-gray-200 dark:border-google-darkBorder relative overflow-hidden">
             <div class="absolute top-0 left-0 right-0 h-1.5 bg-gradient-to-r from-amber-500 via-google-blue to-google-green"></div>
             
             <div class="grid grid-cols-1 lg:grid-cols-12 gap-6 items-center">
-                <!-- Main Progress -->
+                <!-- Main Progress Tracker -->
                 <div class="lg:col-span-7 space-y-3">
-                    <div class="flex justify-between items-baseline">
+                    <div class="flex justify-between items-baseline flex-wrap gap-2">
                         <div>
-                            <h2 class="text-lg font-bold text-gray-900 dark:text-white flex items-center gap-2">
-                                <i class="fa-solid fa-chart-line text-google-blue"></i> RAS Exam Target Velocity
+                            <h2 class="text-xl font-black font-display text-gray-900 dark:text-white flex items-center gap-2">
+                                <i class="fa-solid fa-bullseye text-google-red"></i> Syllabus Velocity & Target Status
                             </h2>
-                            <p class="text-xs text-gray-500 dark:text-gray-400">Current Reference Today: <strong id="currentSimulatedDateStr" class="text-google-blue">---</strong></p>
+                            <p class="text-xs text-gray-500 dark:text-gray-400">Current Target Deadline: <strong id="targetDeadlineDisplay" class="text-google-blue font-bold">15 Nov 2026</strong></p>
                         </div>
-                        <span id="overallPercentageBadge" class="text-2xl font-black text-google-blue dark:text-blue-400">0%</span>
+                        <span id="overallPercentageBadge" class="text-3xl font-black font-display text-google-blue dark:text-blue-400">0%</span>
                     </div>
 
-                    <div class="w-full bg-gray-200 dark:bg-gray-700 h-3.5 rounded-full overflow-hidden p-0.5">
+                    <div class="w-full bg-gray-200 dark:bg-gray-800 h-4 rounded-full overflow-hidden p-0.5 border border-gray-200 dark:border-gray-700">
                         <div id="overallProgressBar" class="bg-gradient-to-r from-amber-500 via-google-blue to-google-green h-full rounded-full transition-all duration-500" style="width: 0%"></div>
                     </div>
 
-                    <div class="flex justify-between text-xs font-semibold text-gray-600 dark:text-gray-400 flex-wrap gap-2">
-                        <span><strong id="completedTopicsCount" class="text-gray-900 dark:text-white">0</strong> / 64 RAS Topics Finished</span>
-                        <span>Projected Finish: <strong id="projectedFinishDate" class="text-google-green dark:text-emerald-400">15 Nov 2026</strong></span>
+                    <div class="flex justify-between text-xs font-bold text-gray-600 dark:text-gray-400 flex-wrap gap-2">
+                        <span><strong id="completedTopicsCount" class="text-gray-900 dark:text-white font-extrabold">0</strong> / 64 Topics Mastered</span>
+                        <span>Daily Required Pace: <strong id="requiredVelocityText" class="text-google-blue font-extrabold">-- topics/day</strong></span>
+                        <span>Projected Finish: <strong id="projectedFinishDate" class="text-google-green font-extrabold">--</strong></span>
                     </div>
                 </div>
 
-                <!-- Stats Cards Grid -->
-                <div class="lg:col-span-5 grid grid-cols-3 gap-2">
-                    <div class="bg-emerald-50 dark:bg-emerald-950/40 p-3 rounded-xl border border-emerald-100 dark:border-emerald-900 text-center">
-                        <span class="block text-[11px] text-emerald-700 dark:text-emerald-300 font-bold uppercase">Completed</span>
-                        <span id="statCompletedTopics" class="text-lg font-black text-emerald-700 dark:text-emerald-200">0 Topics</span>
+                <!-- Live Metrics Grid -->
+                <div class="lg:col-span-5 grid grid-cols-3 gap-2 sm:gap-3">
+                    <div class="bg-emerald-50/80 dark:bg-emerald-950/40 p-3.5 rounded-2xl border border-emerald-200 dark:border-emerald-800/60 text-center">
+                        <span class="block text-[11px] text-emerald-700 dark:text-emerald-300 font-bold uppercase tracking-wider">Completed</span>
+                        <span id="statCompletedTopics" class="text-xl font-black font-display text-emerald-700 dark:text-emerald-200">0</span>
                     </div>
-                    <div class="bg-red-50 dark:bg-red-950/40 p-3 rounded-xl border border-red-100 dark:border-red-900 text-center cursor-pointer hover:scale-105 transition-transform" onclick="toggleBacklogDrawer(true)">
-                        <span class="block text-[11px] text-google-red dark:text-red-300 font-bold uppercase">Backlog <i class="fa-solid fa-arrow-right text-[9px]"></i></span>
-                        <span id="statBacklogTopics" class="text-lg font-black text-google-red dark:text-red-200">0 Topics</span>
+                    <div class="bg-amber-50/80 dark:bg-amber-950/40 p-3.5 rounded-2xl border border-amber-200 dark:border-amber-800/60 text-center">
+                        <span class="block text-[11px] text-amber-700 dark:text-amber-300 font-bold uppercase tracking-wider">Remaining</span>
+                        <span id="statRemainingTopics" class="text-xl font-black font-display text-amber-700 dark:text-amber-200">64</span>
                     </div>
-                    <div class="bg-blue-50 dark:bg-blue-950/40 p-3 rounded-xl border border-blue-100 dark:border-blue-900 text-center">
-                        <span class="block text-[11px] text-google-blue dark:text-blue-300 font-bold uppercase">Remaining</span>
-                        <span id="statRemainingTopics" class="text-lg font-black text-google-blue dark:text-blue-200">64 Topics</span>
+                    <div class="bg-red-50/80 dark:bg-red-950/40 p-3.5 rounded-2xl border border-red-200 dark:border-red-800/60 text-center cursor-pointer hover:scale-105 transition-transform" onclick="switchView('timeline')">
+                        <span class="block text-[11px] text-google-red dark:text-red-300 font-bold uppercase tracking-wider">Days Logged</span>
+                        <span id="statDaysLogged" class="text-xl font-black font-display text-google-red dark:text-red-200">0</span>
                     </div>
                 </div>
             </div>
         </div>
 
-        <!-- Target Deadline & Settings Configuration Bar -->
-        <div class="bg-white dark:bg-google-darkCard p-4 rounded-2xl border border-google-border dark:border-google-darkBorder google-shadow flex flex-col md:flex-row items-center justify-between gap-4">
-            <div class="flex items-center gap-3 flex-wrap">
-                <div class="flex items-center gap-2">
-                    <i class="fa-solid fa-bullseye text-google-red text-base"></i>
-                    <span class="text-xs font-bold text-gray-700 dark:text-gray-300">Target Deadline:</span>
-                    <input type="date" id="targetDeadlineInput" onchange="updateTargetDeadline(this.value)" class="bg-gray-50 dark:bg-gray-800 border border-google-border dark:border-google-darkBorder rounded-lg px-2 py-1 text-xs font-bold text-google-blue focus:outline-none">
+        <!-- Dynamic Date Selector & Feeding Engine Controller -->
+        <div class="bg-gradient-to-r from-amber-500/10 via-blue-500/10 to-indigo-500/10 dark:from-amber-950/30 dark:via-blue-950/30 dark:to-indigo-950/30 p-4 sm:p-5 rounded-3xl border border-amber-200 dark:border-amber-900/40 google-shadow flex flex-col md:flex-row items-center justify-between gap-4">
+            <div class="flex items-center gap-3 flex-wrap w-full md:w-auto">
+                <div class="w-10 h-10 rounded-2xl bg-google-blue text-white flex items-center justify-center font-bold text-lg shadow-md">
+                    <i class="fa-solid fa-calendar-plus"></i>
                 </div>
-                <div class="flex items-center gap-2">
-                    <i class="fa-solid fa-calendar text-google-blue text-base"></i>
-                    <span class="text-xs font-bold text-gray-700 dark:text-gray-300">Current Reference Date:</span>
-                    <input type="date" id="simulatedDateInput" onchange="updateSimulatedDate(this.value)" class="bg-gray-50 dark:bg-gray-800 border border-google-border dark:border-google-darkBorder rounded-lg px-2 py-1 text-xs font-bold text-google-blue focus:outline-none">
+                <div>
+                    <h3 class="text-sm font-extrabold font-display text-gray-900 dark:text-white">Active Date for Instant Feeding ("आज क्या पढ़ा")</h3>
+                    <p class="text-xs text-gray-500 dark:text-gray-400">नीचे किसी भी topic पर Click करें, वह इस Select की हुई Date में Add हो जाएगा!</p>
                 </div>
             </div>
 
-            <div class="flex items-center gap-2 w-full md:w-auto justify-end">
-                <span class="text-xs font-semibold text-gray-500">Default Daily Target:</span>
-                <input type="number" id="defaultDailyQuotaInput" min="1" max="10" value="4" onchange="updateDefaultQuota(this.value)" class="w-14 bg-gray-50 dark:bg-gray-800 border border-google-border dark:border-google-darkBorder rounded-lg px-2 py-1 text-xs font-bold text-center text-gray-900 dark:text-white">
-                <span class="text-xs text-gray-500">Topics/Day</span>
+            <div class="flex items-center gap-3 flex-wrap w-full md:w-auto justify-end">
+                <div class="flex items-center gap-2 bg-white dark:bg-google-darkCard px-3 py-2 rounded-2xl border border-gray-200 dark:border-google-darkBorder shadow-sm">
+                    <i class="fa-solid fa-clock text-google-blue text-xs"></i>
+                    <span class="text-xs font-bold text-gray-700 dark:text-gray-300">Select Date:</span>
+                    <input type="date" id="activeFeedDateInput" onchange="updateActiveFeedDate(this.value)" class="bg-transparent font-extrabold text-google-blue focus:outline-none text-xs">
+                </div>
+
+                <div class="flex items-center gap-2 bg-white dark:bg-google-darkCard px-3 py-2 rounded-2xl border border-gray-200 dark:border-google-darkBorder shadow-sm">
+                    <i class="fa-solid fa-flag-checkered text-google-red text-xs"></i>
+                    <span class="text-xs font-bold text-gray-700 dark:text-gray-300">Target Date:</span>
+                    <input type="date" id="targetDeadlineInput" onchange="updateTargetDeadline(this.value)" class="bg-transparent font-extrabold text-google-red focus:outline-none text-xs">
+                </div>
             </div>
         </div>
 
-        <!-- Controls View Switcher & Filters -->
+        <!-- Controls View Switcher & Search Bar -->
         <div class="flex flex-col md:flex-row md:items-center justify-between gap-4">
-            <!-- View Tabs -->
-            <div class="inline-flex bg-white dark:bg-google-darkCard p-1 rounded-xl border border-google-border dark:border-google-darkBorder google-shadow">
-                <button id="tabDaily" onclick="switchView('daily')" class="px-4 py-1.5 text-xs font-bold rounded-lg transition-all flex items-center gap-2 bg-google-blue text-white shadow-sm">
-                    <i class="fa-solid fa-calendar-day"></i> Dynamic Daily Schedule
+            <!-- Navigation View Tabs -->
+            <div class="inline-flex bg-white dark:bg-google-darkCard p-1.5 rounded-2xl border border-gray-200 dark:border-google-darkBorder google-shadow">
+                <button id="tabHomeHub" onclick="switchView('home')" class="px-5 py-2 text-xs font-extrabold rounded-xl transition-all flex items-center gap-2 bg-google-blue text-white shadow-md">
+                    <i class="fa-solid fa-layer-group"></i> 6 Subjects Hub (Interactive Syllabus)
                 </button>
-                <button id="tabModule" onclick="switchView('module')" class="px-4 py-1.5 text-xs font-bold text-gray-600 dark:text-gray-300 hover:text-gray-900 dark:hover:text-white rounded-lg transition-all flex items-center gap-2">
-                    <i class="fa-solid fa-book"></i> 6 Subjects Syllabus
-                </button>
-                <button id="tabBacklog" onclick="toggleBacklogDrawer(true)" class="px-4 py-1.5 text-xs font-bold text-google-red dark:text-red-400 hover:bg-red-50 dark:hover:bg-red-950/30 rounded-lg transition-all flex items-center gap-2">
-                    <i class="fa-solid fa-triangle-exclamation"></i> Backlog Drawer (<span id="tabBacklogBadge">0</span>)
+                <button id="tabTimeline" onclick="switchView('timeline')" class="px-5 py-2 text-xs font-extrabold text-gray-600 dark:text-gray-300 hover:text-gray-900 dark:hover:text-white rounded-xl transition-all flex items-center gap-2">
+                    <i class="fa-solid fa-timeline"></i> Daily Logged Calendar Timeline
                 </button>
             </div>
 
             <!-- Search & Filters -->
             <div class="flex flex-wrap items-center gap-2">
-                <div class="relative sm:w-48">
+                <div class="relative sm:w-60">
                     <i class="fa-solid fa-magnifying-glass absolute left-3 top-1/2 -translate-y-1/2 text-gray-400 text-xs"></i>
-                    <input type="text" id="searchInput" oninput="handleSearch()" placeholder="Search RAS topic..." class="w-full pl-8 pr-3 py-1.5 bg-white dark:bg-google-darkCard border border-google-border dark:border-google-darkBorder rounded-xl text-xs focus:outline-none focus:ring-2 focus:ring-google-blue text-gray-800 dark:text-gray-100">
+                    <input type="text" id="searchInput" oninput="handleSearch()" placeholder="Search topic or subject..." class="w-full pl-8 pr-3 py-2 bg-white dark:bg-google-darkCard border border-gray-200 dark:border-google-darkBorder rounded-xl text-xs focus:outline-none focus:ring-2 focus:ring-google-blue text-gray-800 dark:text-gray-100">
                 </div>
 
-                <div class="flex items-center space-x-1 bg-white dark:bg-google-darkCard p-1 rounded-xl border border-google-border dark:border-google-darkBorder">
-                    <button onclick="setFilter('ALL')" class="filter-btn px-2.5 py-1 text-xs font-semibold bg-google-blue text-white rounded-lg" data-filter="ALL">All</button>
-                    <button onclick="setFilter('PENDING')" class="filter-btn px-2.5 py-1 text-xs font-semibold text-gray-600 dark:text-gray-300 rounded-lg" data-filter="PENDING">Pending</button>
-                    <button onclick="setFilter('BACKLOG')" class="filter-btn px-2.5 py-1 text-xs font-semibold text-gray-600 dark:text-gray-300 rounded-lg" data-filter="BACKLOG">Backlog</button>
-                    <button onclick="setFilter('DONE')" class="filter-btn px-2.5 py-1 text-xs font-semibold text-gray-600 dark:text-gray-300 rounded-lg" data-filter="DONE">Done</button>
+                <div class="flex items-center space-x-1 bg-white dark:bg-google-darkCard p-1 rounded-xl border border-gray-200 dark:border-google-darkBorder">
+                    <button onclick="setFilter('ALL')" class="filter-btn px-3 py-1.5 text-xs font-bold bg-google-blue text-white rounded-lg" data-filter="ALL">All</button>
+                    <button onclick="setFilter('PENDING')" class="filter-btn px-3 py-1.5 text-xs font-bold text-gray-600 dark:text-gray-300 rounded-lg" data-filter="PENDING">Pending</button>
+                    <button onclick="setFilter('DONE')" class="filter-btn px-3 py-1.5 text-xs font-bold text-gray-600 dark:text-gray-300 rounded-lg" data-filter="DONE">Done</button>
                 </div>
             </div>
         </div>
 
-        <!-- Daily Schedule Container -->
-        <div id="dailyScheduleContainer" class="space-y-4"></div>
+        <!-- HOME PAGE HUB: 6 MAIN SUBJECT CARDS GRID -->
+        <div id="homeSubjectsContainer" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5"></div>
 
-        <!-- Subject Syllabus Module View Container -->
-        <div id="moduleViewContainer" class="hidden grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4"></div>
+        <!-- TIMELINE LOG CONTAINER (Shows day-by-day logged history) -->
+        <div id="timelineContainer" class="hidden space-y-4"></div>
 
     </main>
 
-    <!-- Side Backlog Drawer Overlay -->
-    <div id="backlogDrawerOverlay" onclick="toggleBacklogDrawer(false)" class="fixed inset-0 bg-black/50 z-50 hidden transition-opacity"></div>
-    <div id="backlogDrawer" class="fixed top-0 right-0 h-full w-full sm:w-96 bg-white dark:bg-google-darkCard border-l border-google-border dark:border-google-darkBorder z-50 transform translate-x-full transition-transform duration-300 flex flex-col shadow-2xl">
-        <div class="p-4 border-b border-google-border dark:border-google-darkBorder flex items-center justify-between bg-red-50 dark:bg-red-950/40">
-            <div class="flex items-center gap-2 text-google-red dark:text-red-300">
-                <i class="fa-solid fa-triangle-exclamation text-lg"></i>
-                <h3 class="font-bold text-base">RAS Backlog Manager</h3>
-            </div>
-            <button onclick="toggleBacklogDrawer(false)" class="p-1 text-gray-500 hover:text-gray-800 dark:hover:text-white rounded-lg">
-                <i class="fa-solid fa-xmark text-lg"></i>
-            </button>
-        </div>
-
-        <div class="p-4 bg-gray-50 dark:bg-gray-800/50 border-b border-google-border dark:border-google-darkBorder text-xs text-gray-600 dark:text-gray-300 space-y-2">
-            <p><i class="fa-solid fa-circle-info text-google-blue mr-1"></i> Backlog contains pending topics from past schedule dates. Clear them or let auto-shift engine redistribute!</p>
-        </div>
-
-        <div id="backlogItemsContainer" class="p-4 overflow-y-auto flex-grow space-y-3"></div>
-    </div>
-
     <!-- Micro Notes Modal -->
-    <div id="notesModal" class="fixed inset-0 bg-black/50 z-50 hidden flex items-center justify-center p-4">
-        <div class="bg-white dark:bg-google-darkCard rounded-2xl max-w-md w-full p-6 space-y-4 border border-google-border dark:border-google-darkBorder google-shadow">
+    <div id="notesModal" class="fixed inset-0 bg-black/50 backdrop-blur-sm z-50 hidden flex items-center justify-center p-4">
+        <div class="bg-white dark:bg-google-darkCard rounded-3xl max-w-md w-full p-6 space-y-4 border border-gray-200 dark:border-google-darkBorder google-shadow">
             <div class="flex justify-between items-center">
-                <h3 id="notesModalTitle" class="font-bold text-gray-900 dark:text-white text-base">Topic Revision Notes</h3>
-                <button onclick="toggleModal('notesModal')" class="text-gray-400 hover:text-gray-600 dark:hover:text-white"><i class="fa-solid fa-xmark"></i></button>
+                <h3 id="notesModalTitle" class="font-bold font-display text-gray-900 dark:text-white text-base">Topic Study Notes</h3>
+                <button onclick="toggleModal('notesModal')" class="text-gray-400 hover:text-gray-600 dark:hover:text-white"><i class="fa-solid fa-xmark text-lg"></i></button>
             </div>
-            <p id="notesTopicSubtitle" class="text-xs text-google-blue font-semibold"></p>
-            <textarea id="noteInput" rows="4" placeholder="Write key formulas, important articles, or micro-revision notes..." class="w-full p-3 bg-gray-50 dark:bg-gray-800 border border-google-border dark:border-google-darkBorder rounded-xl text-xs text-gray-900 dark:text-white focus:outline-none focus:ring-2 focus:ring-google-blue"></textarea>
+            <p id="notesTopicSubtitle" class="text-xs text-google-blue font-bold"></p>
+            <textarea id="noteInput" rows="4" placeholder="Write key formulas, important articles, or revision notes for this topic..." class="w-full p-3 bg-gray-50 dark:bg-gray-800 border border-gray-200 dark:border-google-darkBorder rounded-2xl text-xs text-gray-900 dark:text-white focus:outline-none focus:ring-2 focus:ring-google-blue"></textarea>
             <div class="flex justify-end gap-2">
-                <button onclick="toggleModal('notesModal')" class="px-4 py-2 text-xs font-semibold text-gray-600 dark:text-gray-300 bg-gray-100 dark:bg-gray-700 rounded-lg">Cancel</button>
-                <button onclick="saveTopicNote()" class="px-4 py-2 text-xs font-semibold text-white bg-google-blue hover:bg-google-blueHover rounded-lg">Save Note</button>
+                <button onclick="toggleModal('notesModal')" class="px-4 py-2 text-xs font-bold text-gray-600 dark:text-gray-300 bg-gray-100 dark:bg-gray-700 rounded-xl">Cancel</button>
+                <button onclick="saveTopicNote()" class="px-4 py-2 text-xs font-bold text-white bg-google-blue hover:bg-google-blueHover rounded-xl shadow-md">Save Note</button>
             </div>
         </div>
     </div>
 
     <!-- Pomodoro Timer Modal -->
-    <div id="pomodoroModal" class="fixed inset-0 bg-black/50 z-50 hidden flex items-center justify-center p-4">
-        <div class="bg-white dark:bg-google-darkCard rounded-2xl max-w-sm w-full p-6 text-center space-y-5 border border-google-border dark:border-google-darkBorder google-shadow">
+    <div id="pomodoroModal" class="fixed inset-0 bg-black/50 backdrop-blur-sm z-50 hidden flex items-center justify-center p-4">
+        <div class="bg-white dark:bg-google-darkCard rounded-3xl max-w-sm w-full p-6 text-center space-y-5 border border-gray-200 dark:border-google-darkBorder google-shadow">
             <div class="flex justify-between items-center">
-                <h3 class="font-bold text-gray-900 dark:text-white text-base flex items-center gap-2"><i class="fa-solid fa-stopwatch text-google-blue"></i> RAS Study Timer</h3>
-                <button onclick="toggleModal('pomodoroModal')" class="text-gray-400 hover:text-gray-600 dark:hover:text-white"><i class="fa-solid fa-xmark"></i></button>
+                <h3 class="font-bold font-display text-gray-900 dark:text-white text-base flex items-center gap-2"><i class="fa-solid fa-stopwatch text-google-blue"></i> RAS Focus Session</h3>
+                <button onclick="toggleModal('pomodoroModal')" class="text-gray-400 hover:text-gray-600 dark:hover:text-white"><i class="fa-solid fa-xmark text-lg"></i></button>
             </div>
-            <div id="timerDisplay" class="text-5xl font-black text-google-blue my-4 font-mono">25:00</div>
+            <div id="timerDisplay" class="text-5xl font-black font-display text-google-blue my-4 font-mono">25:00</div>
             <div class="flex justify-center gap-2">
-                <button id="timerStartBtn" onclick="startTimer()" class="px-5 py-2.5 bg-google-blue text-white text-xs font-bold rounded-xl hover:bg-google-blueHover"><i class="fa-solid fa-play mr-1"></i> Start</button>
-                <button onclick="pauseTimer()" class="px-5 py-2.5 bg-amber-500 text-white text-xs font-bold rounded-xl hover:bg-amber-600"><i class="fa-solid fa-pause mr-1"></i> Pause</button>
+                <button id="timerStartBtn" onclick="startTimer()" class="px-5 py-2.5 bg-google-blue text-white text-xs font-bold rounded-xl hover:bg-google-blueHover shadow-md"><i class="fa-solid fa-play mr-1"></i> Start</button>
+                <button onclick="pauseTimer()" class="px-5 py-2.5 bg-amber-500 text-white text-xs font-bold rounded-xl hover:bg-amber-600 shadow-md"><i class="fa-solid fa-pause mr-1"></i> Pause</button>
                 <button onclick="resetTimer()" class="px-5 py-2.5 bg-gray-200 dark:bg-gray-700 text-gray-700 dark:text-gray-200 text-xs font-bold rounded-xl"><i class="fa-solid fa-rotate-left mr-1"></i> Reset</button>
             </div>
         </div>
     </div>
 
-    <!-- JavaScript Logic -->
+    <!-- JavaScript Application Logic -->
     <script>
-        // Master RAS Syllabus Data (All 64 Topics mapped from PDF)
-        const rasMasterSyllabus = [
-            // Section 1: Rajasthan: History, Art and Culture (1-12)
-            { id: 1, section: "Rajasthan History & Culture", name: "Civilisations (सभ्यताएँ)", isNew: false },
-            { id: 2, section: "Rajasthan History & Culture", name: "Sources of history: Inscriptions (इतिहास के स्रोत)", isNew: true },
-            { id: 3, section: "Rajasthan History & Culture", name: "Peasant and tribal movements (किसान एवं आदिवासी आंदोलन)", isNew: false },
-            { id: 4, section: "Rajasthan History & Culture", name: "Praja Mandal movement (प्रजामंडल आंदोलन)", isNew: false },
-            { id: 5, section: "Rajasthan History & Culture", name: "Integration of Rajasthan (राजस्थान का एकीकरण)", isNew: false },
-            { id: 6, section: "Rajasthan History & Culture", name: "Temples, forts, palaces (मंदिर, किले, महल)", isNew: false },
-            { id: 7, section: "Rajasthan History & Culture", name: "Painting (चित्रकला)", isNew: false },
-            { id: 8, section: "Rajasthan History & Culture", name: "Folk dance and drama (लोक नृत्य एवं नाटक)", isNew: false },
-            { id: 9, section: "Rajasthan History & Culture", name: "Musical instruments (वाद्य यंत्र)", isNew: false },
-            { id: 10, section: "Rajasthan History & Culture", name: "Fairs and festivals (मेले, त्योहार)", isNew: false },
-            { id: 11, section: "Rajasthan History & Culture", name: "Ornaments (आभूषण)", isNew: false },
-            { id: 12, section: "Rajasthan History & Culture", name: "Saints and folk deities (संत, लोकदेवता)", isNew: false },
-
-            // Section 2: India History: Ancient, Medieval & Modern (13-20)
-            { id: 13, section: "India History", name: "Indus Valley Civilisation (IVC)", isNew: false },
-            { id: 14, section: "India History", name: "Ajivika, Buddhism and Jainism", isNew: false },
-            { id: 15, section: "India History", name: "Chola dynasty, Satavahana dynasty", isNew: false },
-            { id: 16, section: "India History", name: "Varnashrama, Purusharthas, Samskaras, philosophy & education system", isNew: true },
-            { id: 17, section: "India History", name: "Cultural achievements of Vijayanagara", isNew: false },
-            { id: 18, section: "India History", name: "Contribution of the Bhakti and Sufi movements", isNew: false },
-            { id: 19, section: "India History", name: "Marathas, Mysore, Sikhs (imperialism and resistance)", isNew: true },
-            { id: 20, section: "India History", name: "Revolt of 1857", isNew: true },
-
-            // Section 3: Geography: World, India & Rajasthan (21-38)
-            { id: 21, section: "Geography", name: "Mountains, plateaus, deserts, plains", isNew: false },
-            { id: 22, section: "Geography", name: "Natural vegetation", isNew: true },
-            { id: 23, section: "Geography", name: "Major industrial regions and major industries", isNew: false },
-            { id: 24, section: "Geography", name: "Transport system", isNew: true },
-            { id: 25, section: "Geography", name: "Physical divisions: Desert, Island", isNew: true },
-            { id: 26, section: "Geography", name: "Climate (जलवायु)", isNew: true },
-            { id: 27, section: "Geography", name: "Irrigation (सिंचाई)", isNew: true },
-            { id: 28, section: "Geography", name: "Minerals (खनिज)", isNew: false },
-            { id: 29, section: "Geography", name: "Major industrial regions & industries (Raj)", isNew: false },
-            { id: 30, section: "Geography", name: "Location, extent, table (origin)", isNew: true },
-            { id: 31, section: "Geography", name: "Features of climate (जलवायु की विशेषताएं)", isNew: false },
-            { id: 32, section: "Geography", name: "Biodiversity: National Parks, Sanctuaries, Tiger Reserves", isNew: false },
-            { id: 33, section: "Geography", name: "Soil (मृदा)", isNew: false },
-            { id: 34, section: "Geography", name: "Livestock (पशुधन)", isNew: true },
-            { id: 35, section: "Geography", name: "Urbanisation (नगरीकरण)", isNew: true },
-            { id: 36, section: "Geography", name: "Minerals (Rajasthan)", isNew: false },
-            { id: 37, section: "Geography", name: "Tourism (पर्यटन)", isNew: false },
-            { id: 38, section: "Geography", name: "Highest peaks of the Aravalli", isNew: false },
-
-            // Section 4: Indian Constitution, Polity & Rajasthan Administration (39-48)
-            { id: 39, section: "Polity & Administration", name: "Citizenship (नागरिकता)", isNew: true },
-            { id: 40, section: "Polity & Administration", name: "Fundamental Rights, Fundamental Duties (FDs)", isNew: false },
-            { id: 41, section: "Polity & Administration", name: "Directive Principles of State Policy (DPSP)", isNew: false },
-            { id: 42, section: "Polity & Administration", name: "Emergency provisions (आपातकालीन प्रावधान)", isNew: true },
-            { id: 43, section: "Polity & Administration", name: "Panchayati Raj and Municipalities", isNew: false },
-            { id: 44, section: "Polity & Administration", name: "Election Commission", isNew: false },
-            { id: 45, section: "Polity & Administration", name: "UPSC, RPSC, SHRC, Child Rights Protection Commission", isNew: true },
-            { id: 46, section: "Polity & Administration", name: "Citizen's Charter, grievance redressal system", isNew: false },
-            { id: 47, section: "Polity & Administration", name: "Advocate General (महाधिवक्ता)", isNew: true },
-            { id: 48, section: "Polity & Administration", name: "State Commission for Women, Board of Revenue", isNew: true },
-
-            // Section 5: Economy & Rajasthan Economy (49-56)
-            { id: 49, section: "Economy & Rajasthan Review", name: "Measures of development: HDI, happiness report, etc.", isNew: false },
-            { id: 50, section: "Economy & Rajasthan Review", name: "Role of the service sector", isNew: false },
-            { id: 51, section: "Economy & Rajasthan Review", name: "Economic Review: front table", isNew: false },
-            { id: 52, section: "Economy & Rajasthan Review", name: "Pancha Gaurav, Shubhankar (mascot)", isNew: false },
-            { id: 53, section: "Economy & Rajasthan Review", name: "Agro-climatic zones", isNew: false },
-            { id: 54, section: "Economy & Rajasthan Review", name: "New schemes (नई योजनाएं)", isNew: false },
-            { id: 55, section: "Economy & Rajasthan Review", name: "RIICO: parks, zones, centres of excellence", isNew: false },
-            { id: 56, section: "Economy & Rajasthan Review", name: "Externally Aided Projects", isNew: false },
-
-            // Section 6: Science, Tech, Maths, Reasoning & Current Affairs (57-64)
-            { id: 57, section: "Science, Tech & Current Affairs", name: "Diseases: virus, bacteria; short sight and long sight", isNew: false },
-            { id: 58, section: "Science, Tech & Current Affairs", name: "Science and technology: special reference to Rajasthan", isNew: false },
-            { id: 59, section: "Science, Tech & Current Affairs", name: "Logical Venn diagrams", isNew: false },
-            { id: 60, section: "Science, Tech & Current Affairs", name: "Probability (dice)", isNew: false },
-            { id: 61, section: "Science, Tech & Current Affairs", name: "Monsoon in Rajasthan: data", isNew: false },
-            { id: 62, section: "Science, Tech & Current Affairs", name: "Forest Report (latest)", isNew: false },
-            { id: 63, section: "Science, Tech & Current Affairs", name: "Rajasthan Public Examination Act, 2022", isNew: true },
-            { id: 64, section: "Science, Tech & Current Affairs", name: "Top 50 topics: Rajasthan Current Affairs", isNew: false }
+        // Complete 64 Topics Mapped directly from Syllabus PDF across 6 Main Subjects
+        const rasSyllabus = [
+            {
+                subjectId: 1,
+                subjectName: "1. Rajasthan: History, Art and Culture",
+                hindiName: "राजस्थानः इतिहास, कला एवं संस्कृति",
+                icon: "fa-monument",
+                color: "amber",
+                topics: [
+                    { id: 1, name: "Civilisations (सभ्यताएँ)", isNew: false },
+                    { id: 2, name: "Sources of history: Inscriptions (इतिहास के स्रोत: अभिलेख)", isNew: true },
+                    { id: 3, name: "Peasant and tribal movements (किसान एवं आदिवासी आंदोलन)", isNew: false },
+                    { id: 4, name: "Praja Mandal movement (प्रजामंडल आंदोलन)", isNew: false },
+                    { id: 5, name: "Integration of Rajasthan (राजस्थान का एकीकरण)", isNew: false },
+                    { id: 6, name: "Temples, forts, palaces (मंदिर, किले, महल)", isNew: false },
+                    { id: 7, name: "Painting (चित्रकला)", isNew: false },
+                    { id: 8, name: "Folk dance and drama (लोक नृत्य एवं नाटक)", isNew: false },
+                    { id: 9, name: "Musical instruments (वाद्य यंत्र)", isNew: false },
+                    { id: 10, name: "Fairs and festivals (मेले, त्योहार)", isNew: false },
+                    { id: 11, name: "Ornaments (आभूषण)", isNew: false },
+                    { id: 12, name: "Saints and folk deities (संत, लोकदेवता)", isNew: false }
+                ]
+            },
+            {
+                subjectId: 2,
+                subjectName: "2. India History: Ancient, Medieval & Modern",
+                hindiName: "भारत का इतिहासः प्राचीन, मध्यकाल एवं आधुनिक",
+                icon: "fa-landmark-dome",
+                color: "blue",
+                topics: [
+                    { id: 13, name: "Indus Valley Civilisation (IVC) (सिंधु घाटी सभ्यता)", isNew: false },
+                    { id: 14, name: "Ajivika, Buddhism and Jainism (आजीविक, बौद्ध और जैन धर्म)", isNew: false },
+                    { id: 15, name: "Chola dynasty, Satavahana dynasty (चोल राजवंश, सातवाहन राजवंश)", isNew: false },
+                    { id: 16, name: "Varnashrama, Purusharthas, Samskaras, philosophy & education system", isNew: true },
+                    { id: 17, name: "Cultural achievements of Vijayanagara (विजयनगर की सांस्कृतिक उपलब्धियाँ)", isNew: false },
+                    { id: 18, name: "Contribution of the Bhakti and Sufi movements (भक्ति और सूफी आंदोलन)", isNew: false },
+                    { id: 19, name: "Marathas, Mysore, Sikhs (imperialism and resistance)", isNew: true },
+                    { id: 20, name: "Revolt of 1857 (1857 का विद्रोह)", isNew: true }
+                ]
+            },
+            {
+                subjectId: 3,
+                subjectName: "3. Geography: World, India & Rajasthan",
+                hindiName: "विश्व, भारत एवं राजस्थान का भूगोल",
+                icon: "fa-earth-asia",
+                color: "emerald",
+                topics: [
+                    { id: 21, name: "Mountains, plateaus, deserts, plains (पर्वत, पठार, मरुस्थल, मैदान)", isNew: false },
+                    { id: 22, name: "Natural vegetation (प्राकृतिक वनस्पति)", isNew: true },
+                    { id: 23, name: "Major industrial regions and major industries (प्रमुख औद्योगिक प्रदेश)", isNew: false },
+                    { id: 24, name: "Transport system (परिवहन तंत्र)", isNew: true },
+                    { id: 25, name: "Physical divisions: Desert, Island (भौतिक विभाग)", isNew: true },
+                    { id: 26, name: "Climate (जलवायु)", isNew: true },
+                    { id: 27, name: "Irrigation (सिंचाई)", isNew: true },
+                    { id: 28, name: "Minerals (खनिज)", isNew: false },
+                    { id: 29, name: "Major industrial regions & industries (Raj)", isNew: false },
+                    { id: 30, name: "Location, extent, table (origin) (अवस्थिति, विस्तार, तालिका)", isNew: true },
+                    { id: 31, name: "Features of climate (जलवायु की विशेषताएं)", isNew: false },
+                    { id: 32, name: "Biodiversity: National Parks, Sanctuaries, Reserves (जैव विविधता)", isNew: false },
+                    { id: 33, name: "Soil (मृदा)", isNew: false },
+                    { id: 34, name: "Livestock (पशुधन)", isNew: true },
+                    { id: 35, name: "Urbanisation (नगरीकरण)", isNew: true },
+                    { id: 36, name: "Minerals (Rajasthan) (खनिज)", isNew: false },
+                    { id: 37, name: "Tourism (पर्यटन)", isNew: false },
+                    { id: 38, name: "Highest peaks of the Aravalli (अरावली की सर्वोच्च चोटियाँ)", isNew: false }
+                ]
+            },
+            {
+                subjectId: 4,
+                subjectName: "4. Indian Constitution, Polity & Administration",
+                hindiName: "भारतीय संविधान, राजनीति व्यवस्था एवं प्रशासनिक व्यवस्था",
+                icon: "fa-scale-balanced",
+                color: "purple",
+                topics: [
+                    { id: 39, name: "Citizenship (नागरिकता)", isNew: true },
+                    { id: 40, name: "Fundamental Rights, Fundamental Duties (FDs) (मौलिक अधिकार एवं कर्तव्य)", isNew: false },
+                    { id: 41, name: "Directive Principles of State Policy (DPSP) (राज्य के नीति निदेशक तत्व)", isNew: false },
+                    { id: 42, name: "Emergency provisions (आपातकालीन प्रावधान)", isNew: true },
+                    { id: 43, name: "Panchayati Raj and Municipalities (पंचायती राज एवं नगरपालिकाएं)", isNew: false },
+                    { id: 44, name: "Election Commission (निर्वाचन आयोग)", isNew: false },
+                    { id: 45, name: "UPSC, RPSC, SHRC, Child Rights Commission (लोक सेवा आयोग एवं मानवाधिकार)", isNew: true },
+                    { id: 46, name: "Citizen's Charter, grievance redressal system (नागरिक चार्टर)", isNew: false },
+                    { id: 47, name: "Advocate General (महाधिवक्ता)", isNew: true },
+                    { id: 48, name: "State Commission for Women, Board of Revenue (महिला आयोग एवं राजस्व मंडल)", isNew: true }
+                ]
+            },
+            {
+                subjectId: 5,
+                subjectName: "5. Economy & Rajasthan Economy",
+                hindiName: "आर्थिक अवधारणाएं एवं राजस्थान अर्थव्यवस्था (आर्थिक समीक्षा)",
+                icon: "fa-chart-pie",
+                color: "indigo",
+                topics: [
+                    { id: 49, name: "Measures of development: HDI, happiness report (विकास के मापक)", isNew: false },
+                    { id: 50, name: "Role of the service sector (सेवा क्षेत्र की भूमिका)", isNew: false },
+                    { id: 51, name: "Economic Review: front table (आर्थिक समीक्षाः फ्रंट टेबल)", isNew: false },
+                    { id: 52, name: "Pancha Gaurav, Shubhankar (mascot) (पंच गौरव, शुभंकर)", isNew: false },
+                    { id: 53, name: "Agro-climatic zones (कृषि जलवायु क्षेत्र)", isNew: false },
+                    { id: 54, name: "New schemes (नई योजनाएं)", isNew: false },
+                    { id: 55, name: "RIICO: parks, zones, centres of excellence (रीकोः पार्क, ज़ोन)", isNew: false },
+                    { id: 56, name: "Externally Aided Projects (बाह्य सहायता प्राप्त परियोजनाएँ)", isNew: false }
+                ]
+            },
+            {
+                subjectId: 6,
+                subjectName: "6. Science, Tech, Maths, Reasoning & Others",
+                hindiName: "विज्ञान एवं प्रौद्योगिकी, गणित, तर्कशक्ति एवं अन्य",
+                icon: "fa-flask",
+                color: "rose",
+                topics: [
+                    { id: 57, name: "Diseases: virus, bacteria; short sight and long sight (रोग)", isNew: false },
+                    { id: 58, name: "Science and technology: special reference to Raj (विज्ञान एवं प्रौद्योगिकी)", isNew: false },
+                    { id: 59, name: "Logical Venn diagrams (तार्किक वेन आरेख)", isNew: false },
+                    { id: 60, name: "Probability (dice) (प्रायिकता)", isNew: false },
+                    { id: 61, name: "Monsoon in Rajasthan: data (राजस्थान में मानसूनः आँकड़े)", isNew: false },
+                    { id: 62, name: "Forest Report (latest) (वनों की स्थिति)", isNew: false },
+                    { id: 63, name: "Rajasthan Public Examination Act, 2022 (सार्वजनिक परीक्षा अधिनियम)", isNew: true },
+                    { id: 64, name: "Top 50 topics: Rajasthan Current Affairs (राजस्थान समसामयिकी)", isNew: false }
+                ]
+            }
         ];
 
-        // System State
-        let simulatedCurrentDate = new Date().toISOString().split('T')[0];
-        let targetDeadlineDate = "2026-11-15"; // Target Deadline (default 15 Nov)
-        let defaultDailyQuota = 4;
+        // System Persistent State
+        let activeFeedDate = new Date().toISOString().split('T')[0];
+        let targetDeadlineDate = "2026-11-15";
 
-        let userProgress = {};   // Key: topicId (boolean)
-        let vacationDays = {};   // Key: "YYYY-MM-DD" (boolean)
-        let customDailyTarget = {}; // Key: "YYYY-MM-DD" -> number of topics to schedule on that date
-        let topicNotes = {};    // Key: topicId (string)
+        // Main User Log Data Structures
+        let topicCompletionMap = {}; // Key: topicId -> { done: boolean, dateLogged: "YYYY-MM-DD" }
+        let dailyVacationMap = {};    // Key: "YYYY-MM-DD" -> boolean
+        let topicNotesMap = {};       // Key: topicId -> string
 
         let activeFilter = 'ALL';
         let searchQuery = '';
-        let currentView = 'daily';
+        let currentView = 'home';
         let activeEditingTopicId = null;
 
+        // Pomodoro State
         let timerInterval = null;
         let timerSeconds = 25 * 60;
         let isTimerRunning = false;
 
         function initData() {
-            const savedProgress = localStorage.getItem('ras_study_progress');
-            const savedVacations = localStorage.getItem('ras_study_vacations');
-            const savedDailyQuota = localStorage.getItem('ras_study_daily_quota');
-            const savedNotes = localStorage.getItem('ras_study_notes');
-            const savedSimDate = localStorage.getItem('ras_study_simdate');
-            const savedDeadline = localStorage.getItem('ras_study_deadline');
+            const savedLogs = localStorage.getItem('ras_v2_topic_logs');
+            const savedVacations = localStorage.getItem('ras_v2_vacations');
+            const savedNotes = localStorage.getItem('ras_v2_notes');
+            const savedFeedDate = localStorage.getItem('ras_v2_feed_date');
+            const savedDeadline = localStorage.getItem('ras_v2_deadline');
 
-            if (savedProgress) userProgress = JSON.parse(savedProgress);
-            if (savedVacations) vacationDays = JSON.parse(savedVacations);
-            if (savedDailyQuota) customDailyTarget = JSON.parse(savedDailyQuota);
-            if (savedNotes) topicNotes = JSON.parse(savedNotes);
-            if (savedSimDate) simulatedCurrentDate = savedSimDate;
+            if (savedLogs) topicCompletionMap = JSON.parse(savedLogs);
+            if (savedVacations) dailyVacationMap = JSON.parse(savedVacations);
+            if (savedNotes) topicNotesMap = JSON.parse(savedNotes);
+            if (savedFeedDate) activeFeedDate = savedFeedDate;
             if (savedDeadline) targetDeadlineDate = savedDeadline;
 
-            document.getElementById('simulatedDateInput').value = simulatedCurrentDate;
+            document.getElementById('activeFeedDateInput').value = activeFeedDate;
             document.getElementById('targetDeadlineInput').value = targetDeadlineDate;
-            document.getElementById('defaultDailyQuotaInput').value = defaultDailyQuota;
         }
 
         function saveData() {
-            localStorage.setItem('ras_study_progress', JSON.stringify(userProgress));
-            localStorage.setItem('ras_study_vacations', JSON.stringify(vacationDays));
-            localStorage.setItem('ras_study_daily_quota', JSON.stringify(customDailyTarget));
-            localStorage.setItem('ras_study_notes', JSON.stringify(topicNotes));
-            localStorage.setItem('ras_study_simdate', simulatedCurrentDate);
-            localStorage.setItem('ras_study_deadline', targetDeadlineDate);
+            localStorage.setItem('ras_v2_topic_logs', JSON.stringify(topicCompletionMap));
+            localStorage.setItem('ras_v2_vacations', JSON.stringify(dailyVacationMap));
+            localStorage.setItem('ras_v2_notes', JSON.stringify(topicNotesMap));
+            localStorage.setItem('ras_v2_feed_date', activeFeedDate);
+            localStorage.setItem('ras_v2_deadline', targetDeadlineDate);
             updateDashboardMetrics();
         }
 
-        function updateSimulatedDate(newDate) {
-            simulatedCurrentDate = newDate;
+        function updateActiveFeedDate(newDate) {
+            activeFeedDate = newDate;
             saveData();
-            renderDailySchedule();
-            renderBacklogDrawer();
+            renderHomeSubjects();
+            renderTimeline();
         }
 
         function updateTargetDeadline(newDate) {
             targetDeadlineDate = newDate;
             saveData();
-            renderDailySchedule();
-            renderBacklogDrawer();
+            renderHomeSubjects();
+            renderTimeline();
         }
 
-        function updateDefaultQuota(val) {
-            defaultDailyQuota = parseInt(val) || 4;
-            saveData();
-            renderDailySchedule();
-        }
-
-        function setCustomDayQuota(dateStr, count) {
-            const num = parseInt(count);
-            if (num > 0) {
-                customDailyTarget[dateStr] = num;
+        // ONE-CLICK INSTANT FEEDING ENGINE ("Aaj Kya Padha")
+        function toggleTopicFeed(topicId) {
+            if (topicCompletionMap[topicId] && topicCompletionMap[topicId].done) {
+                // If already completed, toggle off
+                delete topicCompletionMap[topicId];
             } else {
-                delete customDailyTarget[dateStr];
+                // Feed to selected activeFeedDate
+                topicCompletionMap[topicId] = {
+                    done: true,
+                    dateLogged: activeFeedDate
+                };
             }
             saveData();
-            renderDailySchedule();
+            renderHomeSubjects();
+            renderTimeline();
         }
 
-        // Dynamic Continuous Shift Engine
-        function buildCalculatedDays() {
-            const pendingTopics = rasMasterSyllabus.filter(t => !userProgress[t.id]);
-            const daysList = [];
-
-            let currentPointer = new Date(simulatedCurrentDate);
-            let topicIndex = 0;
-
-            // Render calendar dynamically until all topics are mapped
-            while (topicIndex < pendingTopics.length) {
-                const dateStr = currentPointer.toISOString().split('T')[0];
-                const isVacation = vacationDays[dateStr] || false;
-                const topicList = [];
-
-                const dailyQuotaForDay = customDailyTarget[dateStr] || defaultDailyQuota;
-
-                if (!isVacation) {
-                    for (let i = 0; i < dailyQuotaForDay && topicIndex < pendingTopics.length; i++) {
-                        topicList.push(pendingTopics[topicIndex]);
-                        topicIndex++;
-                    }
-                }
-
-                daysList.push({
-                    dateStr: dateStr,
-                    isVacation: isVacation,
-                    quota: dailyQuotaForDay,
-                    topics: topicList
-                });
-
-                // Advance calendar by 1 day
-                currentPointer.setDate(currentPointer.getDate() + 1);
-            }
-
-            // Ensure at least 5 days preview even if all done
-            if (daysList.length === 0) {
-                for (let i = 0; i < 5; i++) {
-                    const dateStr = currentPointer.toISOString().split('T')[0];
-                    daysList.push({
-                        dateStr: dateStr,
-                        isVacation: vacationDays[dateStr] || false,
-                        quota: defaultDailyQuota,
-                        topics: []
-                    });
-                    currentPointer.setDate(currentPointer.getDate() + 1);
-                }
-            }
-
-            return daysList;
-        }
-
-        function toggleTopicCheck(topicId) {
-            userProgress[topicId] = !userProgress[topicId];
+        function removeTopicLog(topicId) {
+            delete topicCompletionMap[topicId];
             saveData();
-            renderDailySchedule();
-            renderBacklogDrawer();
-            renderModuleView();
+            renderHomeSubjects();
+            renderTimeline();
         }
 
         function toggleVacationDate(dateStr) {
-            vacationDays[dateStr] = !vacationDays[dateStr];
+            dailyVacationMap[dateStr] = !dailyVacationMap[dateStr];
             saveData();
-            renderDailySchedule();
-            renderBacklogDrawer();
-            renderModuleView();
+            renderTimeline();
         }
 
         function updateDashboardMetrics() {
-            let totalChecked = 0;
-            rasMasterSyllabus.forEach(t => {
-                if (userProgress[t.id]) totalChecked++;
-            });
+            let completedCount = 0;
+            const totalTopics = 64;
 
-            const calculatedDays = buildCalculatedDays();
-            const simDateObj = new Date(simulatedCurrentDate);
-
-            let totalBacklog = 0;
-            calculatedDays.forEach(day => {
-                const dayDateObj = new Date(day.dateStr);
-                if (dayDateObj < simDateObj && !day.isVacation) {
-                    day.topics.forEach(t => {
-                        if (!userProgress[t.id]) totalBacklog++;
-                    });
+            Object.keys(topicCompletionMap).forEach(id => {
+                if (topicCompletionMap[id] && topicCompletionMap[id].done) {
+                    completedCount++;
                 }
             });
 
-            const totalTopics = 64;
-            const percentage = ((totalChecked / totalTopics) * 100).toFixed(1);
+            const remainingCount = totalTopics - completedCount;
+            const pct = ((completedCount / totalTopics) * 100).toFixed(1);
 
-            document.getElementById('overallPercentageBadge').innerText = `${percentage}%`;
-            document.getElementById('overallProgressBar').style.width = `${percentage}%`;
-            document.getElementById('completedTopicsCount').innerText = totalChecked;
-            document.getElementById('statCompletedTopics').innerText = `${totalChecked} Topics`;
-            document.getElementById('statBacklogTopics').innerText = `${totalBacklog} Topics`;
-            document.getElementById('statRemainingTopics').innerText = `${totalTopics - totalChecked} Topics`;
-            document.getElementById('tabBacklogBadge').innerText = totalBacklog;
+            document.getElementById('overallPercentageBadge').innerText = `${pct}%`;
+            document.getElementById('overallProgressBar').style.width = `${pct}%`;
+            document.getElementById('completedTopicsCount').innerText = completedCount;
+            document.getElementById('statCompletedTopics').innerText = completedCount;
+            document.getElementById('statRemainingTopics').innerText = remainingCount;
+
+            // Unique logged days
+            const loggedDatesSet = new Set();
+            Object.values(topicCompletionMap).forEach(val => {
+                if (val.dateLogged) loggedDatesSet.add(val.dateLogged);
+            });
+            document.getElementById('statDaysLogged').innerText = loggedDatesSet.size;
+
+            // Calculate Required Pace to Deadline
+            const todayObj = new Date();
+            const deadlineObj = new Date(targetDeadlineDate);
+            const diffTime = deadlineObj - todayObj;
+            const diffDays = Math.max(1, Math.ceil(diffTime / (1000 * 60 * 60 * 24)));
+
+            const reqVelocity = (remainingCount / diffDays).toFixed(1);
+            document.getElementById('requiredVelocityText').innerText = `${reqVelocity} topics/day (${diffDays} days left)`;
 
             const options = { day: 'numeric', month: 'short', year: 'numeric' };
-            document.getElementById('currentSimulatedDateStr').innerText = simDateObj.toLocaleDateString('en-US', options);
+            document.getElementById('targetDeadlineDisplay').innerText = deadlineObj.toLocaleDateString('en-US', options);
 
-            // Projected Finish Date calculated dynamically
-            const lastStudyDay = calculatedDays.filter(d => d.topics.length > 0).pop();
-            if (lastStudyDay) {
-                const lastDateObj = new Date(lastStudyDay.dateStr);
-                document.getElementById('projectedFinishDate').innerText = lastDateObj.toLocaleDateString('en-US', options);
-                
-                // Highlight target deadline status
-                const deadlineObj = new Date(targetDeadlineDate);
-                const projectedEl = document.getElementById('projectedFinishDate');
-                if (lastDateObj > deadlineObj) {
-                    projectedEl.className = "text-google-red dark:text-red-400 font-extrabold";
-                } else {
-                    projectedEl.className = "text-google-green dark:text-emerald-400 font-extrabold";
-                }
+            // Projected finish based on current average velocity
+            if (loggedDatesSet.size > 0 && completedCount > 0) {
+                const avgSpeed = completedCount / loggedDatesSet.size;
+                const daysNeeded = Math.ceil(remainingCount / avgSpeed);
+                const projDateObj = new Date();
+                projDateObj.setDate(projDateObj.getDate() + daysNeeded);
+                document.getElementById('projectedFinishDate').innerText = projDateObj.toLocaleDateString('en-US', options);
             } else {
-                document.getElementById('projectedFinishDate').innerText = "All Completed!";
+                document.getElementById('projectedFinishDate').innerText = deadlineObj.toLocaleDateString('en-US', options);
             }
         }
 
-        function renderDailySchedule() {
-            const container = document.getElementById('dailyScheduleContainer');
+        // Render Home Page Hub with 6 Subject Cards
+        function renderHomeSubjects() {
+            const container = document.getElementById('homeSubjectsContainer');
             container.innerHTML = '';
 
-            const calculatedDays = buildCalculatedDays();
-            const simDateObj = new Date(simulatedCurrentDate);
+            const options = { day: 'numeric', month: 'short' };
+            const activeFeedDateFormatted = new Date(activeFeedDate).toLocaleDateString('en-US', options);
 
-            calculatedDays.forEach((day) => {
-                const dayDateObj = new Date(day.dateStr);
-                const isPast = dayDateObj < simDateObj;
-                const isToday = day.dateStr === simulatedCurrentDate;
+            rasSyllabus.forEach((sec) => {
+                const totalInSec = sec.topics.length;
+                let doneInSec = 0;
 
-                const allDone = day.topics.length > 0 && day.topics.every(t => userProgress[t.id]);
-                const isBacklogDay = isPast && !allDone && !day.isVacation && day.topics.length > 0;
+                sec.topics.forEach(t => {
+                    if (topicCompletionMap[t.id] && topicCompletionMap[t.id].done) {
+                        doneInSec++;
+                    }
+                });
 
-                // Filter logic
-                if (activeFilter === 'DONE' && (!allDone || day.isVacation)) return;
-                if (activeFilter === 'PENDING' && (allDone && !day.isVacation)) return;
-                if (activeFilter === 'BACKLOG' && !isBacklogDay) return;
+                const pct = ((doneInSec / totalInSec) * 100).toFixed(0);
+                const isFullyDone = doneInSec === totalInSec;
 
-                if (searchQuery) {
-                    const matchesDate = day.dateStr.toLowerCase().includes(searchQuery);
-                    const matchesTopic = day.topics.some(t => t.name.toLowerCase().includes(searchQuery) || t.section.toLowerCase().includes(searchQuery));
-                    if (!matchesDate && !matchesTopic) return;
-                }
+                // Topic Chips HTML inside Subject Card
+                let topicsListHtml = sec.topics.map(t => {
+                    const logData = topicCompletionMap[t.id];
+                    const isChecked = logData && logData.done;
+                    const dateLoggedStr = isChecked ? logData.dateLogged : null;
+                    const hasNote = topicNotesMap[t.id] && topicNotesMap[t.id].trim() !== '';
 
-                const options = { weekday: 'short', day: 'numeric', month: 'short', year: 'numeric' };
-                const formattedDate = dayDateObj.toLocaleDateString('en-US', options);
-                const isSunday = dayDateObj.getDay() === 0;
+                    // Filter application
+                    if (activeFilter === 'DONE' && !isChecked) return '';
+                    if (activeFilter === 'PENDING' && isChecked) return '';
 
-                const card = document.createElement('div');
-                card.className = `p-4 sm:p-5 rounded-2xl border transition-all google-shadow ${
-                    day.isVacation 
-                        ? 'bg-red-50/80 dark:bg-red-950/30 border-google-red/40' 
-                        : allDone && day.topics.length > 0
-                            ? 'bg-emerald-50/60 dark:bg-emerald-950/20 border-emerald-200 dark:border-emerald-800' 
-                            : isToday 
-                                ? 'bg-amber-50/70 dark:bg-amber-950/30 border-amber-500 ring-2 ring-amber-500/20' 
-                                : 'bg-white dark:bg-google-darkCard border-google-border dark:border-google-darkBorder'
-                }`;
+                    if (searchQuery) {
+                        const matchesTopic = t.name.toLowerCase().includes(searchQuery);
+                        if (!matchesTopic) return '';
+                    }
 
-                let topicsGridHtml = '';
-                if (day.isVacation) {
-                    topicsGridHtml = `
-                        <div class="col-span-full p-4 bg-red-100/60 dark:bg-red-900/40 rounded-xl text-center text-google-red dark:text-red-300 font-bold text-xs flex items-center justify-center gap-2">
-                            <i class="fa-solid fa-umbrella-beach text-base"></i> VACATION / OFF DAY (Pending topics automatically shifted forward)
+                    return `
+                        <div class="p-2.5 rounded-2xl border transition-all ${isChecked ? 'bg-emerald-500/10 border-emerald-500/30' : 'bg-gray-50 dark:bg-gray-800/60 border-gray-200 dark:border-gray-700/60 hover:border-google-blue'} flex items-center justify-between gap-2 group">
+                            <button onclick="toggleTopicFeed(${t.id})" class="flex items-start gap-2.5 text-left flex-grow min-w-0">
+                                <div class="mt-0.5 w-4 h-4 rounded-full border ${isChecked ? 'bg-google-green border-google-green text-white' : 'border-gray-400 dark:border-gray-500'} flex items-center justify-center text-[10px] flex-shrink-0 transition-colors">
+                                    ${isChecked ? '<i class="fa-solid fa-check"></i>' : ''}
+                                </div>
+                                <div class="min-w-0">
+                                    <div class="flex items-center gap-1.5 flex-wrap">
+                                        <span class="text-[10px] font-extrabold px-1.5 py-0.2 rounded bg-gray-200 dark:bg-gray-700 text-gray-700 dark:text-gray-300">#${t.id}</span>
+                                        ${t.isNew ? '<span class="text-[9px] font-extrabold px-1 py-0.2 rounded bg-red-100 text-google-red">NEW</span>' : ''}
+                                    </div>
+                                    <p class="text-xs font-semibold mt-0.5 ${isChecked ? 'line-through text-gray-400 dark:text-gray-500' : 'text-gray-800 dark:text-gray-100'} leading-snug">
+                                        ${t.name}
+                                    </p>
+                                    ${isChecked ? `<span class="text-[10px] text-emerald-600 dark:text-emerald-400 font-bold block mt-0.5"><i class="fa-solid fa-calendar-check mr-1"></i>Logged on: ${dateLoggedStr}</span>` : ''}
+                                </div>
+                            </button>
+
+                            <div class="flex items-center gap-1">
+                                <button onclick="openNoteModal(${t.id})" class="p-1.5 text-xs ${hasNote ? 'text-amber-500' : 'text-gray-400 hover:text-gray-600 dark:hover:text-gray-300'}" title="${hasNote ? topicNotesMap[t.id] : 'Add Topic Note'}">
+                                    <i class="fa-solid fa-sticky-note"></i>
+                                </button>
+                            </div>
                         </div>
                     `;
-                } else if (day.topics.length === 0) {
-                    topicsGridHtml = `
-                        <div class="col-span-full p-4 bg-gray-50 dark:bg-gray-800 rounded-xl text-center text-gray-500 text-xs">
-                            No remaining topics scheduled for this day!
+                }).join('');
+
+                const card = document.createElement('div');
+                card.className = "pro-card-gradient rounded-3xl p-5 border border-gray-200 dark:border-google-darkBorder google-shadow flex flex-col justify-between space-y-4 relative overflow-hidden";
+                
+                card.innerHTML = `
+                    <div class="space-y-3">
+                        <div class="flex items-start justify-between gap-3">
+                            <div class="flex items-center gap-3">
+                                <div class="w-10 h-10 rounded-2xl bg-${sec.color}-500/10 text-${sec.color}-600 dark:text-${sec.color}-400 flex items-center justify-center text-lg font-bold border border-${sec.color}-500/20">
+                                    <i class="fa-solid ${sec.icon}"></i>
+                                </div>
+                                <div>
+                                    <h3 class="font-extrabold font-display text-sm text-gray-900 dark:text-white leading-tight">${sec.subjectName}</h3>
+                                    <p class="text-[11px] text-gray-500 dark:text-gray-400 font-medium">${sec.hindiName}</p>
+                                </div>
+                            </div>
+                            <span class="text-[11px] font-black px-2.5 py-1 rounded-full bg-gray-100 dark:bg-gray-800 text-gray-700 dark:text-gray-300 flex-shrink-0">${doneInSec}/${totalInSec} Topics</span>
+                        </div>
+
+                        <!-- Progress Bar -->
+                        <div class="space-y-1">
+                            <div class="flex justify-between text-[11px] font-bold text-gray-500">
+                                <span>Subject Mastery</span>
+                                <span>${pct}%</span>
+                            </div>
+                            <div class="w-full bg-gray-200 dark:bg-gray-700 h-2 rounded-full overflow-hidden">
+                                <div class="bg-gradient-to-r from-amber-500 to-google-green h-full rounded-full transition-all duration-300" style="width: ${pct}%"></div>
+                            </div>
+                        </div>
+
+                        <!-- Instruction Helper -->
+                        <div class="text-[10px] text-google-blue font-bold flex items-center gap-1 bg-blue-50 dark:bg-blue-950/30 px-2.5 py-1 rounded-lg">
+                            <i class="fa-solid fa-circle-info"></i> Click any topic to log into selected date (${activeFeedDateFormatted})
+                        </div>
+
+                        <!-- Topics Grid Accordion -->
+                        <div class="space-y-2 max-h-80 overflow-y-auto pr-1">
+                            ${topicsListHtml !== '' ? topicsListHtml : '<p class="text-xs text-gray-400 text-center py-4">No matching topics found.</p>'}
+                        </div>
+                    </div>
+                `;
+
+                container.appendChild(card);
+            });
+        }
+
+        // Render Daily Timeline Log (Grouped by Date)
+        function renderTimeline() {
+            const container = document.getElementById('timelineContainer');
+            container.innerHTML = '';
+
+            // Map logs grouped by date
+            const logsByDate = {};
+
+            Object.keys(topicCompletionMap).forEach(topicId => {
+                const log = topicCompletionMap[topicId];
+                if (log && log.done) {
+                    const date = log.dateLogged || activeFeedDate;
+                    if (!logsByDate[date]) logsByDate[date] = [];
+                    logsByDate[date].push(parseInt(topicId));
+                }
+            });
+
+            // Ensure activeFeedDate is in the list
+            if (!logsByDate[activeFeedDate]) {
+                logsByDate[activeFeedDate] = [];
+            }
+
+            // Sort dates descending
+            const sortedDates = Object.keys(logsByDate).sort((a,b) => new Date(b) - new Date(a));
+
+            if (sortedDates.length === 0) {
+                container.innerHTML = `
+                    <div class="text-center py-12 bg-white dark:bg-google-darkCard rounded-3xl border border-gray-200 dark:border-google-darkBorder">
+                        <i class="fa-solid fa-calendar-xmark text-4xl text-gray-300 dark:text-gray-600 mb-3 block"></i>
+                        <h3 class="font-bold text-base text-gray-700 dark:text-gray-300">No Topics Logged Yet!</h3>
+                        <p class="text-xs text-gray-500 mt-1">Select a date and click topics on the Home Hub to start logging your study daily!</p>
+                    </div>
+                `;
+                return;
+            }
+
+            sortedDates.forEach(dateStr => {
+                const isVacation = dailyVacationMap[dateStr] || false;
+                const topicIds = logsByDate[dateStr];
+                const dateObj = new Date(dateStr);
+
+                const options = { weekday: 'long', day: 'numeric', month: 'short', year: 'numeric' };
+                const formattedDate = dateObj.toLocaleDateString('en-US', options);
+                const isToday = dateStr === new Date().toISOString().split('T')[0];
+
+                let topicsListHtml = '';
+                if (isVacation) {
+                    topicsListHtml = `
+                        <div class="p-3 bg-red-100/60 dark:bg-red-900/40 rounded-2xl text-center text-google-red dark:text-red-300 font-bold text-xs">
+                            <i class="fa-solid fa-umbrella-beach mr-1"></i> REST DAY / VACATION MARKED
+                        </div>
+                    `;
+                } else if (topicIds.length === 0) {
+                    topicsListHtml = `
+                        <div class="p-3 bg-gray-50 dark:bg-gray-800 rounded-2xl text-center text-gray-400 text-xs italic">
+                            No topics logged for this date. Click topics on Home Hub to feed!
                         </div>
                     `;
                 } else {
-                    topicsGridHtml = day.topics.map((t) => {
-                        const isChecked = userProgress[t.id] || false;
-                        const hasNote = topicNotes[t.id] && topicNotes[t.id].trim() !== '';
+                    topicsListHtml = topicIds.map(id => {
+                        let foundTopic = null;
+                        rasSyllabus.forEach(sec => {
+                            const t = sec.topics.find(x => x.id === id);
+                            if (t) foundTopic = { ...t, sectionName: sec.subjectName };
+                        });
+
+                        if (!foundTopic) return '';
 
                         return `
-                            <div class="p-3 rounded-xl border ${isChecked ? 'bg-emerald-100/60 dark:bg-emerald-900/40 border-emerald-300 dark:border-emerald-700' : 'bg-gray-50 dark:bg-gray-800 border-gray-200 dark:border-gray-700'} flex items-start justify-between gap-2 transition-all">
-                                <label class="flex items-start gap-2.5 cursor-pointer flex-grow min-w-0">
-                                    <input type="checkbox" onchange="toggleTopicCheck(${t.id})" ${isChecked ? 'checked' : ''} class="mt-0.5 w-4 h-4 text-google-blue rounded focus:ring-google-blue">
-                                    <div class="min-w-0 flex-1">
-                                        <div class="flex items-center gap-1.5 flex-wrap">
-                                            <span class="text-[10px] font-extrabold px-1.5 py-0.2 bg-blue-100 text-google-blue dark:bg-blue-900/50 dark:text-blue-300 rounded">Topic #${t.id}</span>
-                                            ${t.isNew ? '<span class="text-[9px] font-bold px-1 py-0.2 bg-red-100 text-google-red rounded">NEW</span>' : ''}
-                                        </div>
-                                        <p class="text-xs font-semibold mt-1 ${isChecked ? 'line-through text-gray-500 dark:text-gray-400' : 'text-gray-900 dark:text-gray-100'} leading-tight">
-                                            ${t.name}
-                                        </p>
-                                        <span class="text-[10px] text-gray-400 dark:text-gray-500 block truncate">${t.section}</span>
+                            <div class="p-3 rounded-2xl bg-emerald-500/10 border border-emerald-500/30 flex items-center justify-between gap-3">
+                                <div class="min-w-0">
+                                    <div class="flex items-center gap-2">
+                                        <span class="text-[10px] font-black px-1.5 py-0.2 rounded bg-emerald-100 text-emerald-800 dark:bg-emerald-900 dark:text-emerald-300">#${foundTopic.id}</span>
+                                        <span class="text-[10px] text-gray-500 truncate">${foundTopic.sectionName}</span>
                                     </div>
-                                </label>
-                                <button onclick="openNoteModal(${t.id})" class="text-xs ${hasNote ? 'text-amber-500 font-bold' : 'text-gray-400 hover:text-gray-600 dark:hover:text-gray-300'}" title="${hasNote ? topicNotes[t.id] : 'Add Note'}">
-                                    <i class="fa-solid fa-sticky-note"></i>
+                                    <p class="text-xs font-bold text-gray-900 dark:text-white mt-1 truncate">${foundTopic.name}</p>
+                                </div>
+                                <button onclick="removeTopicLog(${foundTopic.id})" class="text-xs text-red-500 hover:text-red-700 p-1" title="Remove from this date">
+                                    <i class="fa-solid fa-trash-can"></i>
                                 </button>
                             </div>
                         `;
                     }).join('');
                 }
 
+                const card = document.createElement('div');
+                card.className = "bg-white dark:bg-google-darkCard p-5 rounded-3xl border border-gray-200 dark:border-google-darkBorder google-shadow space-y-3";
+
                 card.innerHTML = `
-                    <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-2 mb-3 pb-2 border-b border-gray-100 dark:border-gray-800">
-                        <div class="flex items-center gap-2 flex-wrap">
-                            <span class="font-extrabold text-sm ${isToday ? 'text-amber-600 dark:text-amber-400' : 'text-gray-900 dark:text-white'}">${formattedDate}</span>
-                            ${isToday ? '<span class="px-2 py-0.5 text-[10px] font-black bg-amber-500 text-white rounded-md uppercase">TODAY</span>' : ''}
-                            ${isSunday ? '<span class="px-2 py-0.5 text-[10px] font-bold bg-red-100 text-google-red rounded-md">SUN</span>' : ''}
-                            ${isBacklogDay ? '<span class="px-2 py-0.5 text-[10px] font-bold bg-red-100 text-google-red rounded-md"><i class="fa-solid fa-clock-rotate-left mr-1"></i>Backlog</span>' : ''}
+                    <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-2 pb-2 border-b border-gray-100 dark:border-gray-800">
+                        <div class="flex items-center gap-2">
+                            <span class="font-extrabold font-display text-sm ${isToday ? 'text-google-blue' : 'text-gray-900 dark:text-white'}">${formattedDate}</span>
+                            ${isToday ? '<span class="px-2 py-0.5 text-[10px] font-black bg-google-blue text-white rounded-md uppercase">TODAY</span>' : ''}
+                            <span class="text-xs font-bold text-gray-500 dark:text-gray-400">(${topicIds.length} Topics Completed)</span>
                         </div>
 
-                        <div class="flex items-center gap-2 flex-wrap">
-                            <!-- Daily Custom Target Input -->
-                            <div class="flex items-center gap-1 bg-gray-100 dark:bg-gray-800 px-2 py-0.5 rounded-lg text-xs">
-                                <span class="text-[11px] text-gray-500">Target:</span>
-                                <input type="number" min="1" max="15" value="${day.quota}" onchange="setCustomDayQuota('${day.dateStr}', this.value)" class="w-10 text-center font-bold bg-transparent text-google-blue focus:outline-none">
-                                <span class="text-[10px] text-gray-400">topics</span>
-                            </div>
-
-                            <button onclick="toggleVacationDate('${day.dateStr}')" class="text-xs font-semibold px-2.5 py-1 rounded-lg border transition-colors ${day.isVacation ? 'bg-red-600 text-white border-red-600' : 'text-gray-600 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-700 border-gray-300 dark:border-gray-600'}">
-                                <i class="fa-solid fa-mug-hot mr-1"></i> ${day.isVacation ? 'Vacation Active' : 'Mark Vacation'}
+                        <div class="flex items-center gap-2">
+                            <button onclick="toggleVacationDate('${dateStr}')" class="text-xs font-bold px-3 py-1 rounded-xl border transition-colors ${isVacation ? 'bg-red-600 text-white border-red-600' : 'text-gray-600 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-700 border-gray-300 dark:border-gray-600'}">
+                                <i class="fa-solid fa-mug-hot mr-1"></i> ${isVacation ? 'Vacation Active' : 'Mark Vacation'}
                             </button>
                         </div>
                     </div>
 
-                    <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-2">
-                        ${topicsGridHtml}
+                    <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-2">
+                        ${topicsListHtml}
                     </div>
                 `;
 
-                container.appendChild(card);
-            });
-        }
-
-        function renderBacklogDrawer() {
-            const container = document.getElementById('backlogItemsContainer');
-            container.innerHTML = '';
-
-            const calculatedDays = buildCalculatedDays();
-            const simDateObj = new Date(simulatedCurrentDate);
-            let backlogCount = 0;
-
-            calculatedDays.forEach(day => {
-                const dayDateObj = new Date(day.dateStr);
-                if (dayDateObj < simDateObj && !day.isVacation) {
-                    day.topics.forEach((t) => {
-                        const isDone = userProgress[t.id] || false;
-                        if (!isDone) {
-                            backlogCount++;
-                            const card = document.createElement('div');
-                            card.className = "p-3 bg-red-50 dark:bg-red-950/30 border border-red-200 dark:border-red-900 rounded-xl flex items-center justify-between gap-2";
-                            card.innerHTML = `
-                                <div>
-                                    <p class="text-xs font-bold text-gray-900 dark:text-white">#${t.id} ${t.name}</p>
-                                    <p class="text-[10px] text-google-red">${t.section} • Past Date: ${day.dateStr}</p>
-                                </div>
-                                <button onclick="toggleTopicCheck(${t.id})" class="px-2.5 py-1 bg-google-green text-white text-[11px] font-bold rounded-lg hover:bg-green-700">
-                                    <i class="fa-solid fa-check mr-1"></i> Done
-                                </button>
-                            `;
-                            container.appendChild(card);
-                        }
-                    });
-                }
-            });
-
-            if (backlogCount === 0) {
-                container.innerHTML = `
-                    <div class="text-center py-10 text-gray-500 text-xs">
-                        <i class="fa-solid fa-circle-check text-google-green text-3xl mb-2 block"></i>
-                        No accumulated backlogs! Excellent progress!
-                    </div>
-                `;
-            }
-        }
-
-        function renderModuleView() {
-            const container = document.getElementById('moduleViewContainer');
-            container.innerHTML = '';
-
-            const sections = [
-                "Rajasthan History & Culture",
-                "India History",
-                "Geography",
-                "Polity & Administration",
-                "Economy & Rajasthan Review",
-                "Science, Tech & Current Affairs"
-            ];
-
-            sections.forEach(secName => {
-                const secTopics = rasMasterSyllabus.filter(t => t.section === secName);
-                const doneCount = secTopics.filter(t => userProgress[t.id]).length;
-                const totalCount = secTopics.length;
-                const pct = ((doneCount / totalCount) * 100).toFixed(0);
-                const isFullyDone = doneCount === totalCount;
-
-                const card = document.createElement('div');
-                card.className = "bg-white dark:bg-google-darkCard p-4 rounded-2xl border border-google-border dark:border-google-darkBorder google-shadow relative overflow-hidden flex flex-col justify-between";
-                
-                let topicListHtml = secTopics.map(t => {
-                    const isChecked = userProgress[t.id] || false;
-                    return `
-                        <div class="flex items-center justify-between text-xs py-1 border-b border-gray-100 dark:border-gray-800 last:border-0">
-                            <span class="${isChecked ? 'line-through text-gray-400' : 'text-gray-800 dark:text-gray-200'} truncate">#${t.id} ${t.name}</span>
-                            <input type="checkbox" onchange="toggleTopicCheck(${t.id})" ${isChecked ? 'checked' : ''} class="w-3.5 h-3.5 text-google-blue rounded focus:ring-google-blue">
-                        </div>
-                    `;
-                }).join('');
-
-                card.innerHTML = `
-                    <div class="absolute top-0 left-0 w-1.5 h-full ${isFullyDone ? 'bg-google-green' : 'bg-amber-500'}"></div>
-                    <div class="space-y-3">
-                        <div class="flex justify-between items-center">
-                            <h4 class="font-bold text-sm text-gray-900 dark:text-white">${secName}</h4>
-                            <span class="text-[10px] bg-amber-100 text-amber-800 dark:bg-amber-900/60 dark:text-amber-300 px-2 py-0.5 rounded font-bold">${totalCount} Topics</span>
-                        </div>
-                        <div class="w-full bg-gray-200 dark:bg-gray-700 h-2 rounded-full overflow-hidden">
-                            <div class="${isFullyDone ? 'bg-google-green' : 'bg-amber-500'} h-full transition-all duration-300" style="width:${pct}%"></div>
-                        </div>
-                        <div class="max-h-52 overflow-y-auto pr-1 space-y-1">
-                            ${topicListHtml}
-                        </div>
-                    </div>
-                    <div class="mt-4 pt-2 border-t border-gray-100 dark:border-gray-800 flex justify-between text-xs font-semibold ${isFullyDone ? 'text-google-green' : 'text-amber-600'}">
-                        <span>${pct}% Mastered</span>
-                        <span>${doneCount}/${totalCount} Completed</span>
-                    </div>
-                `;
                 container.appendChild(card);
             });
         }
 
         function openNoteModal(topicId) {
             activeEditingTopicId = topicId;
-            const topic = rasMasterSyllabus.find(t => t.id === topicId);
-            document.getElementById('notesModalTitle').innerText = `Topic #${topic.id} Notes`;
-            document.getElementById('notesTopicSubtitle').innerText = topic.name;
-            document.getElementById('noteInput').value = topicNotes[topicId] || '';
-            toggleModal('notesModal');
+            let found = null;
+            rasSyllabus.forEach(sec => {
+                const t = sec.topics.find(x => x.id === topicId);
+                if (t) found = t;
+            });
+
+            if (found) {
+                document.getElementById('notesModalTitle').innerText = `Topic #${found.id} Micro-Note`;
+                document.getElementById('notesTopicSubtitle').innerText = found.name;
+                document.getElementById('noteInput').value = topicNotesMap[topicId] || '';
+                toggleModal('notesModal');
+            }
         }
 
         function saveTopicNote() {
             if (activeEditingTopicId) {
-                topicNotes[activeEditingTopicId] = document.getElementById('noteInput').value;
+                topicNotesMap[activeEditingTopicId] = document.getElementById('noteInput').value;
                 saveData();
-                renderDailySchedule();
+                renderHomeSubjects();
             }
             toggleModal('notesModal');
         }
@@ -776,7 +759,7 @@
                     updateTimerDisplay();
                 } else {
                     pauseTimer();
-                    alert("Pomodoro Study Focus Session Completed!");
+                    alert("Pomodoro Focus Session Finished!");
                 }
             }, 1000);
         }
@@ -794,34 +777,21 @@
 
         function switchView(mode) {
             currentView = mode;
-            const dailyBtn = document.getElementById('tabDaily');
-            const moduleBtn = document.getElementById('tabModule');
-            const dailyCont = document.getElementById('dailyScheduleContainer');
-            const moduleCont = document.getElementById('moduleViewContainer');
+            const homeBtn = document.getElementById('tabHomeHub');
+            const timelineBtn = document.getElementById('tabTimeline');
+            const homeCont = document.getElementById('homeSubjectsContainer');
+            const timelineCont = document.getElementById('timelineContainer');
 
-            if (mode === 'daily') {
-                dailyBtn.className = "px-4 py-1.5 text-xs font-bold rounded-lg transition-all flex items-center gap-2 bg-google-blue text-white shadow-sm";
-                moduleBtn.className = "px-4 py-1.5 text-xs font-bold text-gray-600 dark:text-gray-300 hover:text-gray-900 dark:hover:text-white rounded-lg transition-all flex items-center gap-2";
-                dailyCont.classList.remove('hidden');
-                moduleCont.classList.add('hidden');
+            if (mode === 'home') {
+                homeBtn.className = "px-5 py-2 text-xs font-extrabold rounded-xl transition-all flex items-center gap-2 bg-google-blue text-white shadow-md";
+                timelineBtn.className = "px-5 py-2 text-xs font-extrabold text-gray-600 dark:text-gray-300 hover:text-gray-900 dark:hover:text-white rounded-xl transition-all flex items-center gap-2";
+                homeCont.classList.remove('hidden');
+                timelineCont.classList.add('hidden');
             } else {
-                moduleBtn.className = "px-4 py-1.5 text-xs font-bold rounded-lg transition-all flex items-center gap-2 bg-google-blue text-white shadow-sm";
-                dailyBtn.className = "px-4 py-1.5 text-xs font-bold text-gray-600 dark:text-gray-300 hover:text-gray-900 dark:hover:text-white rounded-lg transition-all flex items-center gap-2";
-                moduleCont.classList.remove('hidden');
-                dailyCont.classList.add('hidden');
-            }
-        }
-
-        function toggleBacklogDrawer(open) {
-            const drawer = document.getElementById('backlogDrawer');
-            const overlay = document.getElementById('backlogDrawerOverlay');
-            if (open) {
-                renderBacklogDrawer();
-                overlay.classList.remove('hidden');
-                drawer.classList.remove('translate-x-full');
-            } else {
-                overlay.classList.add('hidden');
-                drawer.classList.add('translate-x-full');
+                timelineBtn.className = "px-5 py-2 text-xs font-extrabold rounded-xl transition-all flex items-center gap-2 bg-google-blue text-white shadow-md";
+                homeBtn.className = "px-5 py-2 text-xs font-extrabold text-gray-600 dark:text-gray-300 hover:text-gray-900 dark:hover:text-white rounded-xl transition-all flex items-center gap-2";
+                timelineCont.classList.remove('hidden');
+                homeCont.classList.add('hidden');
             }
         }
 
@@ -834,18 +804,17 @@
             activeFilter = filter;
             document.querySelectorAll('.filter-btn').forEach(btn => {
                 if (btn.getAttribute('data-filter') === filter) {
-                    btn.className = "filter-btn px-2.5 py-1 text-xs font-semibold bg-google-blue text-white rounded-lg";
+                    btn.className = "filter-btn px-3 py-1.5 text-xs font-bold bg-google-blue text-white rounded-lg";
                 } else {
-                    btn.className = "filter-btn px-2.5 py-1 text-xs font-semibold text-gray-600 dark:text-gray-300 rounded-lg";
+                    btn.className = "filter-btn px-3 py-1.5 text-xs font-bold text-gray-600 dark:text-gray-300 rounded-lg";
                 }
             });
-            renderDailySchedule();
+            renderHomeSubjects();
         }
 
         function handleSearch() {
             searchQuery = document.getElementById('searchInput').value.toLowerCase().trim();
-            renderDailySchedule();
-            renderModuleView();
+            renderHomeSubjects();
         }
 
         function toggleDarkMode() {
@@ -861,11 +830,11 @@
         }
 
         function exportData() {
-            const dump = { userProgress, vacationDays, customDailyTarget, topicNotes, simulatedCurrentDate, targetDeadlineDate };
+            const dump = { topicCompletionMap, dailyVacationMap, topicNotesMap, activeFeedDate, targetDeadlineDate };
             const dataStr = "data:text/json;charset=utf-8," + encodeURIComponent(JSON.stringify(dump, null, 2));
             const anchor = document.createElement('a');
             anchor.setAttribute("href", dataStr);
-            anchor.setAttribute("download", "ras_study_plan_backup.json");
+            anchor.setAttribute("download", "ras_study_logs_backup.json");
             document.body.appendChild(anchor);
             anchor.click();
             anchor.remove();
@@ -878,33 +847,31 @@
             reader.onload = function(e) {
                 try {
                     const data = JSON.parse(e.target.result);
-                    if (data.userProgress) userProgress = data.userProgress;
-                    if (data.vacationDays) vacationDays = data.vacationDays;
-                    if (data.customDailyTarget) customDailyTarget = data.customDailyTarget;
-                    if (data.topicNotes) topicNotes = data.topicNotes;
-                    if (data.simulatedCurrentDate) simulatedCurrentDate = data.simulatedCurrentDate;
+                    if (data.topicCompletionMap) topicCompletionMap = data.topicCompletionMap;
+                    if (data.dailyVacationMap) dailyVacationMap = data.dailyVacationMap;
+                    if (data.topicNotesMap) topicNotesMap = data.topicNotesMap;
+                    if (data.activeFeedDate) activeFeedDate = data.activeFeedDate;
                     if (data.targetDeadlineDate) targetDeadlineDate = data.targetDeadlineDate;
                     saveData();
                     initData();
-                    renderDailySchedule();
-                    renderModuleView();
-                    alert("RAS Study Plan Data Imported Successfully!");
+                    renderHomeSubjects();
+                    renderTimeline();
+                    alert("RAS Study Data Imported Successfully!");
                 } catch(err) {
-                    alert("Invalid JSON file format!");
+                    alert("Invalid JSON backup file!");
                 }
             };
             reader.readAsText(file);
         }
 
         function resetData() {
-            if (confirm("Reset all RAS study progress, custom targets, and vacation settings?")) {
-                userProgress = {};
-                vacationDays = {};
-                customDailyTarget = {};
-                topicNotes = {};
+            if (confirm("Reset all logged study topics and notes?")) {
+                topicCompletionMap = {};
+                dailyVacationMap = {};
+                topicNotesMap = {};
                 saveData();
-                renderDailySchedule();
-                renderModuleView();
+                renderHomeSubjects();
+                renderTimeline();
             }
         }
 
@@ -912,8 +879,8 @@
             initTheme();
             initData();
             updateDashboardMetrics();
-            renderDailySchedule();
-            renderModuleView();
+            renderHomeSubjects();
+            renderTimeline();
         };
     </script>
 </body>
